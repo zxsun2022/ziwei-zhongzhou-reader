@@ -2,13 +2,13 @@
 
 和 AI 聊天，就能获得融合中州派理论的紫微斗数命盘深度解读。
 
-本项目是 [ziwei-iztro-reader](../ziwei-iztro-reader/) 的衍生版，在原版排盘能力基础上，新增《王亭之谈紫微斗数》的系统解读知识，提供更具深度的命理分析。
+本项目是 [ziwei-iztro-skill](https://github.com/zxsun2022/ziwei-iztro-skill) 的衍生版，在原版排盘能力基础上，新增《王亭之谈紫微斗数》的系统解读知识，提供更具深度的命理分析。
 
 ---
 
 ## 与原版的区别
 
-| 对比项 | 原版 (ziwei-iztro-reader) | 本版 (ziwei-zhongzhou-reader) |
+| 对比项 | 原版 (ziwei-iztro-skill) | 本版 (ziwei-zhongzhou-reader) |
 |--------|---------------------------|------------------------------|
 | 排盘能力 | iztro 完整排盘 | 相同（共享脚本） |
 | 解读知识 | SKILL.md 约 2K token 简表 | 简表 + 王亭之中州派理论按需加载 |

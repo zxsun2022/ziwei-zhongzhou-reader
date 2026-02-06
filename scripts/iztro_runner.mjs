@@ -429,6 +429,8 @@ if (gender !== 'male' && gender !== 'female') {
   fail('birth.gender must be male or female.');
 }
 
+// NOTE: birthplace is collected for metadata/display only; iztro does not use it for
+// calculations. True solar time correction based on longitude is not yet implemented.
 const birthplace = typeof birth.birthplace === 'string' ? birth.birthplace.trim() : '';
 if (!birthplace) {
   fail('birth.birthplace must be a non-empty string.');
