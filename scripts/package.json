@@ -1,0 +1,13 @@
+{
+  "name": "ziwei-iztro-runner",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Runner for Zi Wei chart generation and layered horoscope snapshots.",
+  "scripts": {
+    "run": "node iztro_runner.mjs"
+  },
+  "dependencies": {
+    "iztro": "^2.0.0"
+  }
+}

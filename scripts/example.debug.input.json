@@ -1,0 +1,21 @@
+{
+  "birth": {
+    "confirmed": true,
+    "calendar": "solar",
+    "date": "1994-8-15",
+    "timeIndex": 7,
+    "gender": "female",
+    "birthplace": "Shanghai, China",
+    "language": "zh-CN",
+    "fixLeap": true,
+    "isLeapMonth": false
+  },
+  "query": {
+    "timezone": "Asia/Shanghai",
+    "baseDate": "today",
+    "futureDates": [],
+    "debug": {
+      "includeIndexMapping": true
+    }
+  }
+}

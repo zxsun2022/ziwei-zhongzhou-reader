@@ -1,0 +1,4 @@
+interface:
+  display_name: "紫微排盘与深度解读（王亭之版）"
+  short_description: "基于 iztro 排盘，融合王亭之中州派理论的紫微斗数分层深度解读"
+  default_prompt: "Use $ziwei-zhongzhou-reader to generate a Zi Wei chart and layered interpretation from birth details, with in-depth analysis based on Wang Tingzhi's teachings."
