@@ -1,0 +1,11 @@
+{
+  "name": "ziwei-zhongzhou-reader",
+  "private": true,
+  "version": "0.2.0",
+  "scripts": {
+    "install:deps": "npm --prefix scripts install",
+    "test": "npm --prefix scripts run test",
+    "run": "npm --prefix scripts run run --",
+    "regen:example": "npm --prefix scripts run regen:example"
+  }
+}

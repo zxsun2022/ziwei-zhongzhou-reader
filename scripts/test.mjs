@@ -9,7 +9,7 @@
  */
 
 import { execSync } from 'node:child_process';
-import { readFileSync, writeFileSync } from 'node:fs';
+import { writeFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -54,6 +54,12 @@ function runRunnerExpectFail(inputJson) {
   } catch (error) {
     return { exitCode: error.status, stderr: error.stderr };
   }
+}
+
+function runRunnerWithInput(inputJson, fileName = '_test_normalized_input.json') {
+  const tmpPath = resolve(__dirname, fileName);
+  writeFileSync(tmpPath, JSON.stringify(inputJson));
+  return runRunner(fileName);
 }
 
 // -------------------------------------------------------------------------
@@ -189,7 +195,24 @@ console.log('Test 5: Lunar date day=30 accepted');
 // -------------------------------------------------------------------------
 console.log('Test 6: normalizedInput correctness');
 {
-  const out = runRunner('example.input.json');
+  const out = runRunnerWithInput({
+    birth: {
+      confirmed: true,
+      calendar: 'solar',
+      date: '1994-8-15',
+      timeIndex: 7,
+      gender: 'female',
+      birthplace: 'Shanghai, China',
+      language: 'zh-CN',
+      fixLeap: true,
+      isLeapMonth: false,
+    },
+    query: {
+      timezone: 'Asia/Shanghai',
+      baseDate: '2026-2-6',
+      futureDates: ['2026-03-01', '2026-06-18'],
+    },
+  });
   const ni = out.normalizedInput;
 
   assert(ni.calendar === 'solar', 'calendar is solar');
@@ -210,6 +233,7 @@ try {
   const { unlinkSync } = await import('node:fs');
   unlinkSync(resolve(__dirname, '_test_tmp.json'));
   unlinkSync(resolve(__dirname, '_test_lunar.json'));
+  unlinkSync(resolve(__dirname, '_test_normalized_input.json'));
 } catch {
   // ignore cleanup errors
 }

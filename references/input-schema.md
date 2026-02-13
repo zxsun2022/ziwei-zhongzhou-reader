@@ -12,7 +12,7 @@
     "date": "1994-8-15",
     "timeIndex": 7,
     "gender": "female",
-    "birthplace": "China/Shanghai",
+    "birthplace": "Shanghai, China",
     "isLeapMonth": false,
     "fixLeap": true,
     "language": "zh-CN"
@@ -32,7 +32,7 @@
 - `birth.date`：`YYYY-M-D`
 - `birth.timeIndex`：`0..12`
 - `birth.gender`：`male` 或 `female`
-- `birth.birthplace`：必填，非空字符串
+- `birth.birthplace`：必填，非空字符串（如 `Shanghai` 或 `Shanghai, China`）
 - `birth.isLeapMonth`：农历闰月标记，仅 `lunar` 模式生效
 - `birth.fixLeap`：农历闰月修正策略，仅 `lunar` 模式生效
 - `birth.language`：可选，默认 `zh-CN`

@@ -5,9 +5,11 @@
   "version": "0.1.0",
   "description": "Runner for Zi Wei chart generation and layered horoscope snapshots.",
   "scripts": {
-    "run": "node iztro_runner.mjs"
+    "run": "node iztro_runner.mjs",
+    "test": "node test.mjs",
+    "regen:example": "node iztro_runner.mjs example.input.json > example.output.json"
   },
   "dependencies": {
-    "iztro": "^2.0.0"
+    "iztro": "~2.5.0"
   }
 }

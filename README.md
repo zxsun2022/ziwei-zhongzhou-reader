@@ -2,13 +2,13 @@
 
 和 AI 聊天，就能获得融合中州派理论的紫微斗数命盘深度解读。
 
-本项目是 [ziwei-iztro-skill](https://github.com/zxsun2022/ziwei-iztro-skill) 的衍生版，在原版排盘能力基础上，新增《王亭之谈紫微斗数》的系统解读知识，提供更具深度的命理分析。
+本项目是 [ziwei-iztro-reader](https://github.com/zxsun2022/ziwei-iztro-skill) 的衍生版，在原版排盘能力基础上，新增《王亭之谈紫微斗数》的系统解读知识，提供更具深度的命理分析。
 
 ---
 
 ## 与原版的区别
 
-| 对比项 | 原版 (ziwei-iztro-skill) | 本版 (ziwei-zhongzhou-reader) |
+| 对比项 | 原版 (ziwei-iztro-reader) | 本版 (ziwei-zhongzhou-reader) |
 |--------|---------------------------|------------------------------|
 | 排盘能力 | iztro 完整排盘 | 相同（共享脚本） |
 | 解读知识 | SKILL.md 约 2K token 简表 | 简表 + 王亭之中州派理论按需加载 |
@@ -59,10 +59,31 @@ npm install
 
 ---
 
+## 根目录脚本
+
+```bash
+cd ziwei-zhongzhou-reader
+npm run install:deps
+npm run test
+npm run run -- example.input.json
+npm run regen:example
+```
+
+---
+
+## Agent 配置适配说明
+
+- `SKILL.md` 是跨平台核心入口，任何支持 Skill 文本指令的 Agent 都应优先读取它。
+- `agents/openai.yaml` 主要用于 OpenAI/Codex 系生态中的展示与默认提示词。
+- Cursor、Claude、Windsurf 等是否读取 `agents/openai.yaml` 取决于各平台实现；即使忽略该文件，`SKILL.md` 仍可独立工作。
+
+---
+
 ## 项目结构
 
 ```
 ziwei-zhongzhou-reader/
+├── package.json                  # 根目录统一入口脚本
 ├── SKILL.md                     # Skill 定义（含中州派核心原则 + 按需读取指引）
 ├── scripts/                     # 排盘脚本（iztro_runner.mjs + 依赖）
 ├── references/
@@ -91,6 +112,21 @@ ziwei-zhongzhou-reader/
 │   └── openai.yaml
 └── README.md
 ```
+
+---
+
+## 示例输出说明
+
+- `scripts/example.output.json` 是文档快照示例，不是回归测试黄金标准。
+- 示例输入 `scripts/example.input.json` 使用固定 `baseDate=2026-2-6` 以便结果可复现。
+- 需要刷新示例时，执行：`npm run regen:example`（仓库根目录）。
+
+---
+
+## 版本信息
+
+- 当前 Skill 版本：`v0.2.0`
+- 版本来源：Git Tag（以仓库中的 tag 为准）
 
 ---
 

@@ -8,7 +8,7 @@ import { resolve } from 'node:path';
 // ---------------------------------------------------------------------------
 
 function fail(message) {
-  console.error(`[ziwei-iztro-runner] ${message}`);
+  console.error(`[ziwei-zhongzhou-runner] ${message}`);
   process.exit(1);
 }
 
