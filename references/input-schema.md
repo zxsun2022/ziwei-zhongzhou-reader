@@ -19,7 +19,7 @@
   },
   "query": {
     "timezone": "Asia/Shanghai",
-    "baseDate": "today",
+    "baseDate": "2026-2-6",
     "futureDates": ["2026-03-01", "2026-06-18"]
   }
 }
@@ -70,3 +70,4 @@
 - 仅提供 `full` 档位，不提供 `brief/standard`。
 - 当 `birth.confirmed !== true` 时，脚本直接报错并停止输出。
 - 默认只输出 `byRole` 口径；除非显式开启 `query.debug.includeIndexMapping`。
+- 文档示例为固定日期，便于复现；实际对话场景可继续使用 `today`。

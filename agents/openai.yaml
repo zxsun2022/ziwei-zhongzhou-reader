@@ -1,4 +1,4 @@
 interface:
   display_name: "紫微排盘与深度解读（王亭之版）"
   short_description: "基于 iztro 排盘，融合王亭之中州派理论的紫微斗数分层深度解读"
-  default_prompt: "Use $ziwei-zhongzhou-reader to generate a Zi Wei chart and a full-depth, evidence-based layered interpretation from birth details. Do not return one-line summaries; provide 12-palace analysis with explicit star-combination, mutagen, and palace-to-conclusion reasoning based on Wang Tingzhi's teachings."
+  default_prompt: "Use $ziwei-zhongzhou-reader to generate a Zi Wei chart and a full-depth, evidence-based layered interpretation from birth details. Internally read relevant wang-references before concluding, do not return one-line summaries, and if output is truncated continue in numbered parts until the full template is completed."
