@@ -224,6 +224,48 @@ console.log('Test 6: normalizedInput correctness');
   assert(ni.timezone === 'Asia/Shanghai', 'timezone is Asia/Shanghai');
   assert(ni.baseDateSolar, 'baseDateSolar present');
   assert(ni.baseDateLunar, 'baseDateLunar present');
+  assert(ni.baseDateDayOfWeek === 'Friday', 'baseDateDayOfWeek is Friday for 2026-2-6');
+}
+
+// -------------------------------------------------------------------------
+// Test 7: New date helper fields (dayOfWeek, dateSummary)
+// -------------------------------------------------------------------------
+{
+  console.log('Test 7: Date helper fields (dayOfWeek, dateSummary)');
+  const out = runRunnerWithInput({
+    birth: {
+      confirmed: true,
+      calendar: 'solar',
+      date: '1994-8-15',
+      timeIndex: 7,
+      gender: 'female',
+      birthplace: 'Shanghai, China',
+      language: 'zh-CN',
+      fixLeap: true,
+      isLeapMonth: false,
+    },
+    query: {
+      timezone: 'Asia/Shanghai',
+      baseDate: '2026-3-4',
+      futureDates: ['2026-3-6'],
+    },
+  });
+
+  const cd = out.currentDetailed;
+  assert(cd.dayOfWeek === 'Wednesday', 'currentDetailed.dayOfWeek is Wednesday for 2026-3-4');
+  assert(cd.dateSummary !== null && cd.dateSummary !== undefined, 'dateSummary present');
+  assert(typeof cd.dateSummary.yearlyGanZhi === 'string', 'yearlyGanZhi is string');
+  assert(typeof cd.dateSummary.monthlyGanZhi === 'string', 'monthlyGanZhi is string');
+  assert(typeof cd.dateSummary.monthlyHeavenlyStem === 'string', 'monthlyHeavenlyStem is string');
+  assert(cd.dateSummary.monthlyHeavenlyStem.length === 1, 'monthlyHeavenlyStem is single char');
+  assert(typeof cd.dateSummary.dailyGanZhi === 'string', 'dailyGanZhi is string');
+  assert(typeof cd.dateSummary.dailyHeavenlyStem === 'string', 'dailyHeavenlyStem is string');
+  assert(cd.dateSummary.dailyHeavenlyStem.length === 1, 'dailyHeavenlyStem is single char');
+
+  const fd0 = out.futureDetailed[0];
+  assert(fd0.dayOfWeek === 'Friday', 'futureDetailed[0].dayOfWeek is Friday for 2026-3-6');
+  assert(fd0.dateSummary !== null && fd0.dateSummary !== undefined, 'futureDetailed dateSummary present');
+  assert(typeof fd0.dateSummary.dailyHeavenlyStem === 'string', 'futureDetailed dailyHeavenlyStem is string');
 }
 
 // -------------------------------------------------------------------------

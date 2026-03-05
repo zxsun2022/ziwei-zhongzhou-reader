@@ -8,7 +8,7 @@ import { resolve } from 'node:path';
 // ---------------------------------------------------------------------------
 
 function fail(message) {
-  console.error(`[ziwei-zhongzhou-runner] ${message}`);
+  console.error(`[ziwei-iztro-runner] ${message}`);
   process.exit(1);
 }
 
@@ -363,10 +363,43 @@ function buildDetailedPalaceReport(astrolabe, snapshot, options = {}) {
   return (astrolabe.palaces || []).map((palace) => buildPalaceEntry(palace, ctx));
 }
 
+/**
+ * Compute ISO day-of-week name from a YYYY-M-D solar date string.
+ * Returns e.g. "Monday", "Tuesday", etc.
+ */
+function dayOfWeekFromSolar(solarDateText) {
+  const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const d = localNoonDate(solarDateText);
+  return DAYS[d.getDay()] || null;
+}
+
+/**
+ * Extract the heavenly stem from a GanZhi string (e.g. "丙午" → "丙").
+ */
+function extractHeavenlyStem(ganZhi) {
+  return typeof ganZhi === 'string' && ganZhi.length >= 1 ? ganZhi[0] : null;
+}
+
 function buildDetailedSnapshot(astrolabe, snapshot, targetSolarDate, options = {}) {
+  const monthlyGanZhi = snapshot?.monthly?.heavenlyStem && snapshot?.monthly?.earthlyBranch
+    ? `${snapshot.monthly.heavenlyStem}${snapshot.monthly.earthlyBranch}`
+    : null;
+  const dailyGanZhi = snapshot?.daily?.heavenlyStem && snapshot?.daily?.earthlyBranch
+    ? `${snapshot.daily.heavenlyStem}${snapshot.daily.earthlyBranch}`
+    : null;
+
   return {
     targetSolarDate,
     targetLunarDate: snapshot?.lunarDate || null,
+    dayOfWeek: dayOfWeekFromSolar(targetSolarDate),
+    dateSummary: {
+      yearlyGanZhi: snapshot?.yearly?.heavenlyStem && snapshot?.yearly?.earthlyBranch
+        ? `${snapshot.yearly.heavenlyStem}${snapshot.yearly.earthlyBranch}` : null,
+      monthlyGanZhi,
+      monthlyHeavenlyStem: extractHeavenlyStem(monthlyGanZhi),
+      dailyGanZhi,
+      dailyHeavenlyStem: extractHeavenlyStem(dailyGanZhi),
+    },
     age: sanitizeForJson(snapshot?.age || null),
     decadal: sanitizeForJson(snapshot?.decadal || null),
     yearly: sanitizeForJson(snapshot?.yearly || null),
@@ -429,8 +462,6 @@ if (gender !== 'male' && gender !== 'female') {
   fail('birth.gender must be male or female.');
 }
 
-// NOTE: birthplace is collected for metadata/display only; iztro does not use it for
-// calculations. True solar time correction based on longitude is not yet implemented.
 const birthplace = typeof birth.birthplace === 'string' ? birth.birthplace.trim() : '';
 if (!birthplace) {
   fail('birth.birthplace must be a non-empty string.');
@@ -535,6 +566,7 @@ const output = {
     timezone,
     baseDateSolar: baseDateText,
     baseDateLunar: currentRaw?.lunarDate ?? null,
+    baseDateDayOfWeek: dayOfWeekFromSolar(baseDateText),
   },
   outputPolicy: {
     detailLevel: 'full',

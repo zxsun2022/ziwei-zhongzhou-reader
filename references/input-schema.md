@@ -19,7 +19,7 @@
   },
   "query": {
     "timezone": "Asia/Shanghai",
-    "baseDate": "2026-2-6",
+    "baseDate": "today",
     "futureDates": ["2026-03-01", "2026-06-18"]
   }
 }
@@ -44,10 +44,23 @@
 ## 输出核心字段
 
 - `normalizedInput`：标准化输入与日期解析结果
+  - `baseDateDayOfWeek`：基准日期的星期几（如 `"Wednesday"`）
 - `outputPolicy`：输出策略与免责声明（固定 `full`）
 - `natalSummary`：命盘元数据（命主、身主、五行局、干支、星座、生肖等，不含逐宫数据）
 - `currentDetailed`：当前日期的详细分层快照，含逐宫合并明细
 - `futureDetailed[]`：未来日期的详细分层快照，含逐宫合并明细
+
+## `currentDetailed` / `futureDetailed[]` 顶层字段
+
+- `targetSolarDate`：该快照对应的公历日期
+- `targetLunarDate`：该快照对应的农历日期（中文格式）
+- `dayOfWeek`：星期几（英文，如 `"Wednesday"`）
+- `dateSummary`：干支日期摘要
+  - `yearlyGanZhi`：流年干支（如 `"丙午"`）
+  - `monthlyGanZhi`：流月干支（如 `"庚寅"`）
+  - `monthlyHeavenlyStem`：流月天干（如 `"庚"`）
+  - `dailyGanZhi`：流日干支（如 `"丁丑"`）
+  - `dailyHeavenlyStem`：流日天干（如 `"丁"`）
 
 ## `currentDetailed.palaces[]` 关键字段
 
@@ -70,4 +83,3 @@
 - 仅提供 `full` 档位，不提供 `brief/standard`。
 - 当 `birth.confirmed !== true` 时，脚本直接报错并停止输出。
 - 默认只输出 `byRole` 口径；除非显式开启 `query.debug.includeIndexMapping`。
-- 文档示例为固定日期，便于复现；实际对话场景可继续使用 `today`。
